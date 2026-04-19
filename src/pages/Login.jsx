@@ -1,43 +1,55 @@
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+const Login = () => {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const navigate = useNavigate();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
 
         if (!email || !password) {
-            alert("All fields are required");
+            toast.error("All fields are required");
             return;
         }
 
-        alert("Login Successfully")
+        toast.success("Login Successfull");
+        localStorage.setItem("isLoggedIn", "true");
 
-        console.log(email, "email", password, "password");
+        console.log(email, password);
+
+        navigate("/dashboard");
     }
 
     return (
         <div>
-            <h2>Login</h2>
+            <h2>Login Page</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type='email'
-                    placeholder='Enter email'
+                    placeholder='Enter Email'
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(event) => setEmail(event.target.value)}
                 />
                 <br />
 
                 <input
                     type='password'
-                    placeholder='Enter password'
+                    placeholder='Enter Password'
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                 />
                 <br />
 
                 <button type='submit'>Login</button>
+                <br />
+
+                <Link to="/register">Register</Link>
             </form>
         </div>
     )

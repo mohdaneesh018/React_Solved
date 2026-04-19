@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
-function Register() {
+const Register = () => {
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -9,30 +12,30 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!name || !email || !password) {
-            alert("All fields are required");
+        if (!name || !email || !password || !confirmPassword) {
+            toast.error("All fields are required");
             return;
         }
 
         if (password !== confirmPassword) {
-            alert("Password does not match");
+            toast.error("Password does not match");
             return;
         }
 
-        alert("Register Successfully")
+        toast.success("Register Successfull");
 
-        console.log(name, email, password);
+        console.log(name, email, password, confirmPassword);
     }
 
     return (
         <div>
-            <h2>Register</h2>
+            <h2>Register Page</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
                     placeholder='Enter Your Name'
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(event) => setName(event.target.value)}
                 />
                 <br />
 
@@ -40,27 +43,30 @@ function Register() {
                     type='email'
                     placeholder='Enter Your Email'
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(event) => setEmail(event.target.value)}
                 />
                 <br />
 
                 <input
-                    type='password'
+                    type='Password'
                     placeholder='Enter Your Password'
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                 />
                 <br />
 
                 <input
                     type='password'
-                    placeholder='Enter Your Password'
+                    placeholder='Enter Your Confirm Password'
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
                 />
                 <br />
 
                 <button type='submit'>Register</button>
+                <br />
+                
+                <Link to="/">Login</Link>
             </form>
         </div>
     )
