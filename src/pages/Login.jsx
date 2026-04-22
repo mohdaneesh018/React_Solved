@@ -31,7 +31,6 @@ const Login = () => {
 
             console.log(email, password);
 
-            navigate("/dashboard");
         } else {
             toast.error("Invalid Credentials");
             return;
