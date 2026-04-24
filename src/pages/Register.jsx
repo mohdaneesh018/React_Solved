@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +12,7 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!name || !email || !password || !confirmPassword) {
@@ -24,7 +25,13 @@ const Register = () => {
             return;
         }
 
-        toast.success("Register Successful");
+        const response = await axios.post("http://localhost:3000/register", {
+            name,
+            email,
+            password
+        });
+
+        toast.success(response.data.message);
 
         localStorage.setItem("user", JSON.stringify({ email, password }));
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,27 +14,34 @@ const Login = () => {
     const hardCodedPassword = "1234";
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         if (!email || !password) {
             toast.error("All fields are required");
             return;
         }
 
-        if (email === hardCodedEmail && password === hardCodedPassword) {
+        // if (email === hardCodedEmail && password === hardCodedPassword) {
+        try {
+            const response = await axios.post("http://localhost:3000/login", {
+                email,
+                password
+            });
 
-            toast.success("Login Successful");
+            toast.success(response.data.message);
 
             console.log("Token Generated");
 
-            localStorage.setItem("token", "abc123");
+            localStorage.setItem("token", response.data.token);
 
             console.log(email, password);
 
-        } else {
-            toast.error("Invalid Credentials");
-            return;
+            navigate("/home");
+
+            // }
+        } catch (error) {
+            toast.error(error.response.data.message)
         }
     };
 
