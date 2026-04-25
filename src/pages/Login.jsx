@@ -14,8 +14,8 @@ const Login = () => {
     const hardCodedPassword = "1234";
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         if (!email || !password) {
             toast.error("All fields are required");
@@ -120,7 +120,6 @@ const Login = () => {
                     >
                         Register
                     </Link>
-
                 </form>
             </div>
         </div>
