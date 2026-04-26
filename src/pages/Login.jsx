@@ -14,8 +14,8 @@ const Login = () => {
     const hardCodedPassword = "1234";
 
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         if (!email || !password) {
             toast.error("All fields are required");
